@@ -1,7 +1,7 @@
 function validar(){
 
     //poner coma al declarar una variable evita poner var a cada una de ellas...
-    var nombre, apellidos, correo, usuario, telefono, expresion;
+    var nombre, apellidos, correo, usuario, telefono, expresionCorreo, expresionLetraEspacio;
 
     //asignando valor a las variables...
     nombre = document.getElementById("nombre").value;
@@ -10,10 +10,12 @@ function validar(){
     usuario = document.getElementById("usuario").value;
     telefono = document.getElementById("telefono").value;
     contraseña = document.getElementById("pass").value;
-    expresion = /\w+@\w+\.+[a-z]/; //para validar los caracteres del correo
+    expresionCorreo = /\w+@\w+\.+[a-z]/; //para validar los caracteres del correo
+    expresionLetraEspacio = /^[A-Za-z\_\-\.\s\xF1\xD1]+$/; //para validar los caracteres letras y espacios
 
     var saludo = "Bienvenido " + nombre + " " + apellidos + ". Tu usuario es: " + usuario + ". Tu contraseña es: " + contraseña;
 
+    //condiciones para validar campos
     if (nombre === "" || apellidos === "" || correo === "" || usuario === "" || telefono === ""){
         alert("Todos los campos son obligatorios");
         return false;
@@ -26,7 +28,11 @@ function validar(){
         alert("Los apellidos son muy largos");
         return false;
     }
-    else if (!expresion.test(correo)){
+    else if (!expresionLetraEspacio.test(nombre) || !expresionLetraEspacio.test(apellidos) || !expresionLetraEspacio.test(usuario)){
+        alert("Nombre, apellidos y usuario aceptan solo letras y espacios");
+        return false;
+    }
+    else if (!expresionCorreo.test(correo)){
         alert("El correo no es válido");
         return false;
     }
